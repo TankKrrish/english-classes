@@ -1,0 +1,2425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EliteSpeak Academy — Speak English Confidently in 90 Days</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500;1,600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ══════════════════════════════════════════════════
+   DESIGN SYSTEM / CSS VARIABLES
+══════════════════════════════════════════════════ */
+:root {
+  --navy:        #0F172A;
+  --navy-mid:    #1E2D4A;
+  --navy-deep:   #080E1A;
+  --gold:        #D4AF37;
+  --gold-light:  #F0D060;
+  --gold-dark:   #B8860B;
+  --cream:       #F8F5F0;
+  --cream-dark:  #EDE8E0;
+  --white:       #FFFFFF;
+  --muted:       #94A3B8;
+  --success:     #22C55E;
+  --error:       #EF4444;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-accent:  'Cormorant Garamond', Georgia, serif;
+
+  --radius-card: 16px;
+  --radius-btn:  50px;
+  --radius-sm:   8px;
+
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2);
+  --shadow-hover: 0 16px 48px rgba(0,0,0,0.45), 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-gold: 0 0 40px rgba(212,175,55,0.25);
+
+  --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ══════════════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--navy);
+  color: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* Grain texture overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.4;
+}
+
+/* ══════════════════════════════════════════════════
+   TYPOGRAPHY
+══════════════════════════════════════════════════ */
+h1,h2,h3,h4 { font-family: var(--font-display); line-height: 1.15; }
+.eyebrow {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.eyebrow::before { content: '✦'; font-style: normal; font-size: 0.75rem; }
+
+/* ══════════════════════════════════════════════════
+   LAYOUT UTILS
+══════════════════════════════════════════════════ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+.section { padding: 100px 0; }
+.section--navy { background: var(--navy); }
+.section--cream { background: var(--cream); color: var(--navy); }
+.section--deep { background: var(--navy-deep); }
+
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-header h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.section-header h2 em { font-style: italic; color: var(--gold); }
+.section--cream .section-header h2 em { color: var(--gold-dark); }
+
+/* Gold divider */
+.gold-divider {
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  margin: 1.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* ══════════════════════════════════════════════════
+   BUTTONS
+══════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.9rem 2.2rem;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+.btn:hover::after { transform: translateX(100%); }
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  color: var(--navy);
+  box-shadow: 0 4px 20px rgba(212,175,55,0.4);
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(212,175,55,0.6);
+}
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+}
+.btn-outline:hover {
+  background: rgba(212,175,55,0.08);
+  transform: translateY(-2px);
+}
+.btn-navy {
+  background: var(--navy);
+  color: var(--cream);
+  border: 1.5px solid var(--navy);
+}
+.btn-navy:hover { background: var(--navy-mid); transform: translateY(-2px); }
+.btn-outline-navy {
+  background: transparent;
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+}
+.btn-outline-navy:hover { background: rgba(15,23,42,0.08); transform: translateY(-2px); }
+.btn-lg { padding: 1.1rem 2.6rem; font-size: 1.05rem; }
+
+/* ══════════════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+.reveal-delay-3 { transition-delay: 0.36s; }
+.reveal-delay-4 { transition-delay: 0.48s; }
+
+/* ══════════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════════ */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.4rem 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+}
+#navbar.scrolled {
+  background: rgba(15,23,42,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1rem 5%;
+  box-shadow: 0 2px 30px rgba(0,0,0,0.4);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  display: flex; align-items: center; gap: 0.15rem;
+}
+.nav-logo span { color: var(--gold); }
+
+.nav-links {
+  display: flex; align-items: center; gap: 2.5rem;
+}
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color 0.25s;
+  letter-spacing: 0.02em;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+
+.hamburger {
+  display: none; flex-direction: column;
+  gap: 5px; width: 26px;
+}
+.hamburger span {
+  display: block; height: 2px;
+  background: var(--cream);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-drawer {
+  position: fixed; top: 0; right: -100%;
+  width: min(320px, 100vw);
+  height: 100vh;
+  background: var(--navy-deep);
+  z-index: 999;
+  padding: 6rem 2.5rem 2.5rem;
+  transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
+  border-left: 1px solid rgba(212,175,55,0.2);
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.mobile-drawer.open { right: 0; }
+.mobile-drawer a {
+  font-size: 1.15rem; font-weight: 500;
+  color: var(--cream); padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  transition: color 0.25s, padding-left 0.25s;
+}
+.mobile-drawer a:hover { color: var(--gold); padding-left: 0.5rem; }
+.mobile-drawer .btn { margin-top: 1.5rem; width: 100%; justify-content: center; }
+
+.drawer-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 998;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s;
+}
+.drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+/* ══════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+  padding: 120px 5% 80px;
+}
+
+/* Animated background mesh */
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 70% 50%, rgba(212,175,55,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 10% 80%, rgba(30,45,74,0.8) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 90% 10%, rgba(212,175,55,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Diagonal stripe */
+#hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 60px,
+    rgba(212,175,55,0.015) 60px,
+    rgba(212,175,55,0.015) 61px
+  );
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: var(--radius-btn);
+  background: rgba(212,175,55,0.07);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.8rem;
+  animation: fadeUp 0.8s ease both;
+}
+.hero-badge .pulse-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+.hero-h1 {
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-weight: 900;
+  line-height: 1.08;
+  margin-bottom: 1.6rem;
+}
+.hero-h1 .line { display: block; overflow: hidden; }
+.hero-h1 .line span {
+  display: block;
+  animation: fadeUp 0.9s cubic-bezier(0.4,0,0.2,1) both;
+}
+.hero-h1 .line:nth-child(1) span { animation-delay: 0.2s; }
+.hero-h1 .line:nth-child(2) span { animation-delay: 0.35s; }
+.hero-h1 .line:nth-child(3) span { animation-delay: 0.5s; }
+
+.hero-highlight {
+  color: var(--gold);
+  position: relative;
+  display: inline-block;
+}
+.hero-highlight::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 2px;
+  animation: expandLine 0.8s 0.9s ease forwards;
+}
+@keyframes expandLine { to { width: 100%; } }
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+  animation: fadeUp 0.9s 0.6s ease both;
+}
+
+.hero-ctas {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fadeUp 0.9s 0.75s ease both;
+}
+
+.hero-stats {
+  display: flex; gap: 2.5rem; flex-wrap: wrap;
+  margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  animation: fadeUp 0.9s 0.9s ease both;
+}
+.hero-stat-item { text-align: left; }
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.3rem;
+  letter-spacing: 0.04em;
+}
+
+/* Hero visual right side */
+.hero-visual {
+  position: relative;
+  animation: fadeIn 1.2s 0.4s ease both;
+}
+.hero-card-main {
+  aspect-ratio: 4/5;
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--navy-mid) 0%, #1a3050 100%);
+  border: 1px solid rgba(212,175,55,0.3);
+  box-shadow: var(--shadow-gold), var(--shadow-card);
+  overflow: hidden;
+  position: relative;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem;
+}
+.hero-card-inner-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(212,175,55,0.08) 0%, transparent 70%);
+}
+.hero-card-avatar {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(212,175,55,0.3), rgba(212,175,55,0.1));
+  border: 2px solid rgba(212,175,55,0.5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  position: relative; z-index: 1;
+}
+.hero-card-text { text-align: center; position: relative; z-index: 1; }
+.hero-card-text h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+}
+.hero-card-text p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+.hero-card-stars { color: var(--gold); font-size: 0.95rem; letter-spacing: 2px; }
+
+/* Floating decorative elements */
+.hero-quote-mark {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 12rem;
+  color: rgba(212,175,55,0.06);
+  line-height: 1;
+  pointer-events: none;
+  animation: float1 8s ease-in-out infinite;
+}
+.hero-quote-mark.top-left { top: -2rem; left: -3rem; }
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  animation: float2 10s ease-in-out infinite;
+}
+.hero-orb.orb1 {
+  width: 300px; height: 300px;
+  background: rgba(212,175,55,0.06);
+  top: -100px; right: -100px;
+}
+.hero-orb.orb2 {
+  width: 200px; height: 200px;
+  background: rgba(30,45,74,0.8);
+  bottom: -50px; left: -50px;
+  animation-delay: -4s;
+}
+.floating-badge {
+  position: absolute;
+  bottom: 2rem; left: -2rem;
+  background: rgba(15,23,42,0.9);
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: 12px;
+  padding: 0.75rem 1.1rem;
+  display: flex; align-items: center; gap: 0.65rem;
+  backdrop-filter: blur(20px);
+  animation: float1 6s ease-in-out infinite;
+  z-index: 3;
+}
+.floating-badge .badge-icon { font-size: 1.4rem; }
+.floating-badge .badge-text { line-height: 1.3; }
+.floating-badge .badge-text strong { display: block; font-size: 0.85rem; color: var(--white); }
+.floating-badge .badge-text span { font-size: 0.72rem; color: var(--muted); }
+
+.floating-badge2 {
+  position: absolute;
+  top: 1.5rem; right: -1.5rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.85rem;
+  animation: float2 7s ease-in-out infinite;
+  z-index: 3;
+  box-shadow: 0 8px 24px rgba(212,175,55,0.4);
+}
+
+@keyframes float1 {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes float2 {
+  0%,100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ══════════════════════════════════════════════════
+   TRUST BAR
+══════════════════════════════════════════════════ */
+#trust-bar {
+  background: rgba(8,14,26,0.95);
+  border-top: 1px solid rgba(212,175,55,0.12);
+  border-bottom: 1px solid rgba(212,175,55,0.12);
+  padding: 2rem 5%;
+}
+.trust-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; gap: 3rem; flex-wrap: wrap;
+}
+.trust-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.trust-logos {
+  display: flex; align-items: center; gap: 3rem; flex-wrap: wrap;
+  flex: 1;
+}
+.trust-logo {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.05em;
+  transition: color 0.25s;
+}
+.trust-logo:hover { color: rgba(255,255,255,0.4); }
+
+/* ══════════════════════════════════════════════════
+   COURSE OVERVIEW
+══════════════════════════════════════════════════ */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  margin-bottom: 3.5rem;
+}
+.course-card {
+  background: var(--navy);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: var(--radius-card);
+  padding: 2.5rem;
+  position: relative; overflow: hidden;
+  transition: var(--transition);
+}
+.course-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.course-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+.course-card:hover::before { transform: scaleX(1); }
+
+.course-card-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: rgba(212,175,55,0.1);
+  border: 1px solid rgba(212,175,55,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.course-level-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-btn);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.badge-beginner { background: rgba(34,197,94,0.12); color: #22C55E; border: 1px solid rgba(34,197,94,0.3); }
+.badge-intermediate { background: rgba(212,175,55,0.12); color: var(--gold); border: 1px solid rgba(212,175,55,0.3); }
+.badge-advanced { background: rgba(239,68,68,0.12); color: #EF4444; border: 1px solid rgba(239,68,68,0.3); }
+
+.course-card h3 {
+  font-size: 1.4rem; color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.course-card .for-who {
+  font-size: 0.85rem; color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+.course-outcomes { margin-bottom: 1.5rem; }
+.course-outcomes li {
+  font-size: 0.88rem; color: var(--cream);
+  padding: 0.4rem 0;
+  display: flex; align-items: flex-start; gap: 0.6rem;
+}
+.course-outcomes li::before {
+  content: '✦'; color: var(--gold);
+  font-size: 0.6rem; margin-top: 0.4rem; flex-shrink: 0;
+}
+.course-duration {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.82rem; color: var(--muted);
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.method-tags {
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
+  justify-content: center;
+}
+.method-tag {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-btn);
+  background: var(--navy);
+  border: 1px solid rgba(212,175,55,0.2);
+  color: var(--cream);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+.method-tag:hover {
+  border-color: var(--gold);
+  background: rgba(212,175,55,0.06);
+  transform: translateY(-2px);
+}
+
+/* ══════════════════════════════════════════════════
+   WHY CHOOSE US
+══════════════════════════════════════════════════ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+}
+.stat-block {
+  text-align: center;
+  padding: 2rem 1rem;
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: var(--radius-card);
+  background: rgba(30,45,74,0.4);
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+}
+.stat-block:hover { border-color: rgba(212,175,55,0.4); transform: translateY(-4px); }
+.stat-block .big-num {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stat-block .big-label { font-size: 0.85rem; color: var(--muted); }
+
+.usp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+}
+.usp-block {
+  display: flex; align-items: flex-start; gap: 1.25rem;
+  padding: 1.75rem;
+  background: rgba(30,45,74,0.35);
+  border: 1px solid rgba(212,175,55,0.12);
+  border-radius: var(--radius-card);
+  transition: var(--transition);
+}
+.usp-block:hover { border-color: rgba(212,175,55,0.35); transform: translateX(4px); }
+.usp-icon {
+  width: 48px; height: 48px; flex-shrink: 0;
+  border-radius: 12px;
+  background: rgba(212,175,55,0.1);
+  border: 1px solid rgba(212,175,55,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+}
+.usp-text h4 { font-size: 1rem; color: var(--white); margin-bottom: 0.3rem; }
+.usp-text p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+.progress-section h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--white);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.progress-list { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+.progress-item {}
+.progress-label {
+  display: flex; justify-content: space-between;
+  font-size: 0.9rem; color: var(--cream);
+  margin-bottom: 0.6rem;
+}
+.progress-label span:last-child { color: var(--gold); font-weight: 600; }
+.progress-track {
+  height: 8px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 50px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+  border-radius: 50px;
+  width: 0;
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ══════════════════════════════════════════════════
+   CURRICULUM
+══════════════════════════════════════════════════ */
+.tab-nav {
+  display: flex; gap: 0.5rem;
+  background: var(--navy);
+  padding: 0.35rem;
+  border-radius: var(--radius-btn);
+  border: 1px solid rgba(212,175,55,0.15);
+  margin-bottom: 3rem;
+  width: fit-content; margin-left: auto; margin-right: auto;
+}
+.tab-btn {
+  padding: 0.65rem 1.75rem;
+  border-radius: var(--radius-btn);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: var(--transition);
+}
+.tab-btn.active {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  box-shadow: 0 4px 16px rgba(212,175,55,0.3);
+}
+.tab-btn:hover:not(.active) { color: var(--navy); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.curriculum-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+.module-card {
+  background: var(--navy);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: var(--radius-card);
+  padding: 1.75rem;
+  display: flex; gap: 1.25rem; align-items: flex-start;
+  transition: var(--transition);
+}
+.module-card:hover { border-color: rgba(212,175,55,0.4); transform: translateY(-3px); }
+.module-week {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 900;
+  color: rgba(212,175,55,0.25);
+  line-height: 1; flex-shrink: 0;
+  width: 60px;
+}
+.module-info h4 {
+  font-size: 1rem; color: var(--white);
+  margin-bottom: 0.35rem;
+}
+.module-info p { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
+.module-skills {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+.module-skill {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 50px;
+  background: rgba(212,175,55,0.08);
+  color: var(--gold);
+  border: 1px solid rgba(212,175,55,0.2);
+}
+
+.curriculum-cta { text-align: center; }
+
+/* ══════════════════════════════════════════════════
+   INSTRUCTORS
+══════════════════════════════════════════════════ */
+.instructors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+.instructor-card {
+  background: rgba(30,45,74,0.5);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: var(--radius-card);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.instructor-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0); transform-origin: center;
+  transition: transform 0.4s ease;
+}
+.instructor-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+.instructor-card:hover::after { transform: scaleX(1); }
+
+.instructor-avatar {
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy-mid), var(--navy));
+  border: 2px solid rgba(212,175,55,0.5);
+  box-shadow: 0 0 30px rgba(212,175,55,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem;
+  margin: 0 auto 1.25rem;
+}
+.instructor-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--white);
+  margin-bottom: 0.3rem;
+}
+.instructor-cred {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  background: rgba(212,175,55,0.1);
+  border: 1px solid rgba(212,175,55,0.25);
+  border-radius: 50px;
+  font-size: 0.72rem;
+  color: var(--gold);
+  padding: 0.25rem 0.75rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.instructor-exp { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+.instructor-bio { font-size: 0.88rem; color: var(--cream); line-height: 1.7; margin-bottom: 1.25rem; }
+.instructor-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+.instructor-tag {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 50px;
+  background: rgba(30,45,74,0.8);
+  color: var(--muted);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.instructor-philosophy {
+  max-width: 700px; margin: 0 auto;
+  text-align: center;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: rgba(212,175,55,0.8);
+  line-height: 1.7;
+  padding: 2.5rem;
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: var(--radius-card);
+  background: rgba(30,45,74,0.3);
+  position: relative;
+}
+.instructor-philosophy::before {
+  content: '"';
+  font-size: 8rem; color: rgba(212,175,55,0.05);
+  position: absolute; top: -2rem; left: 1rem;
+  font-family: var(--font-display);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════
+   TESTIMONIALS
+══════════════════════════════════════════════════ */
+.testimonial-carousel {
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 3rem;
+  cursor: grab;
+}
+.testimonial-carousel:active { cursor: grabbing; }
+.testimonial-track {
+  display: flex;
+  gap: 1.5rem;
+  animation: autoScroll 30s linear infinite;
+  width: max-content;
+}
+.testimonial-track:hover { animation-play-state: paused; }
+
+@keyframes autoScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.testimonial-card {
+  width: 360px; flex-shrink: 0;
+  background: var(--navy);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: var(--radius-card);
+  padding: 2rem;
+  transition: border-color 0.25s;
+}
+.testimonial-card:hover { border-color: rgba(212,175,55,0.4); }
+
+.t-stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 1rem; }
+.t-quote {
+  font-size: 0.92rem;
+  color: var(--cream);
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+.t-footer { display: flex; align-items: center; gap: 1rem; }
+.t-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(212,175,55,0.3), rgba(30,45,74,0.8));
+  border: 1.5px solid rgba(212,175,55,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+.t-info strong { display: block; font-size: 0.9rem; color: var(--white); }
+.t-info span { font-size: 0.78rem; color: var(--muted); }
+.t-progress {
+  margin-left: auto;
+  text-align: right;
+}
+.t-progress .before { font-size: 0.7rem; color: var(--muted); }
+.t-progress .after { font-size: 0.82rem; font-weight: 700; color: var(--gold); }
+
+.aggregate-rating {
+  text-align: center;
+  margin: 3rem 0;
+  padding: 3rem;
+  background: var(--navy);
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(212,175,55,0.2);
+}
+.aggregate-rating .big-score {
+  font-family: var(--font-display);
+  font-size: 5rem; font-weight: 900;
+  color: var(--gold-dark); line-height: 1;
+}
+.aggregate-rating .stars-row { font-size: 1.8rem; color: var(--gold); margin: 0.5rem 0; letter-spacing: 4px; }
+.aggregate-rating .review-count { font-size: 0.9rem; color: var(--muted); }
+
+.success-stories {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+}
+.success-card {
+  background: var(--navy);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: var(--radius-card);
+  padding: 2.5rem;
+  display: flex; gap: 1.75rem; align-items: flex-start;
+  transition: var(--transition);
+}
+.success-card:hover { transform: translateY(-4px); border-color: rgba(212,175,55,0.4); }
+.success-stat {
+  flex-shrink: 0; text-align: center;
+  background: rgba(212,175,55,0.08);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 12px;
+  padding: 1.25rem 1rem;
+  min-width: 90px;
+}
+.success-stat .pct {
+  font-family: var(--font-display);
+  font-size: 2.2rem; font-weight: 900;
+  color: var(--gold); line-height: 1;
+}
+.success-stat .pct-label { font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; }
+.success-info h4 { font-size: 1.05rem; color: var(--white); margin-bottom: 0.4rem; }
+.success-info p { font-size: 0.87rem; color: var(--muted); line-height: 1.65; }
+
+/* ══════════════════════════════════════════════════
+   PRICING
+══════════════════════════════════════════════════ */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  align-items: start;
+  margin-bottom: 2.5rem;
+}
+.pricing-card {
+  background: rgba(30,45,74,0.5);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: var(--radius-card);
+  padding: 2.5rem;
+  position: relative;
+  transition: var(--transition);
+}
+.pricing-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+.pricing-card.popular {
+  border-color: var(--gold);
+  background: rgba(30,45,74,0.7);
+  transform: scale(1.03);
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+.pricing-card.popular:hover { transform: scale(1.03) translateY(-6px); }
+@keyframes pulse-ring {
+  0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.0), var(--shadow-card); }
+  50% { box-shadow: 0 0 0 8px rgba(212,175,55,0.08), var(--shadow-card); }
+}
+
+.popular-badge {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  font-size: 0.72rem; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.3rem 1.2rem;
+  border-radius: var(--radius-btn);
+  white-space: nowrap;
+}
+
+.pricing-name { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.75rem; }
+.pricing-price {
+  font-family: var(--font-display);
+  font-size: 2.8rem; font-weight: 900;
+  color: var(--white); line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.pricing-price sub { font-size: 1.1rem; font-weight: 400; color: var(--muted); }
+.pricing-price sup { font-size: 1.4rem; font-weight: 700; }
+.pricing-period { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+.pricing-divider {
+  height: 1px;
+  background: rgba(212,175,55,0.15);
+  margin: 1.5rem 0;
+}
+
+.pricing-features { margin-bottom: 2rem; }
+.pricing-features li {
+  display: flex; align-items: flex-start; gap: 0.7rem;
+  font-size: 0.87rem; color: var(--cream);
+  padding: 0.5rem 0;
+}
+.pricing-features li i { color: var(--gold); margin-top: 0.15rem; flex-shrink: 0; font-size: 0.8rem; }
+.pricing-features li.disabled { opacity: 0.35; }
+.pricing-features li.disabled i { color: var(--muted); }
+
+.pricing-footer-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.money-back {
+  display: flex; align-items: center; gap: 0.75rem;
+  justify-content: center;
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: 10px;
+  padding: 0.9rem 1.5rem;
+  font-size: 0.85rem;
+  color: #4ADE80;
+}
+.money-back i { font-size: 1.2rem; }
+
+/* ══════════════════════════════════════════════════
+   DEMO FORM
+══════════════════════════════════════════════════ */
+#demo {
+  background: linear-gradient(135deg, var(--navy) 50%, var(--cream) 50%);
+  padding: 100px 5%;
+}
+.demo-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+}
+.demo-left h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+.demo-left h2 em { color: var(--gold); font-style: italic; }
+.demo-benefits { margin: 1.75rem 0; }
+.demo-benefits li {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  font-size: 0.9rem; color: var(--cream);
+  padding: 0.45rem 0;
+}
+.demo-benefits li i { color: var(--gold); margin-top: 0.15rem; font-size: 0.85rem; }
+.urgency-text {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 0.82rem;
+  color: #FCA5A5;
+  font-weight: 600;
+}
+.urgency-text i { animation: pulse-dot 1.5s infinite; }
+
+.demo-form-wrap {
+  background: rgba(30,45,74,0.7);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(212,175,55,0.25);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-card), var(--shadow-gold);
+}
+.demo-form-wrap h3 {
+  font-family: var(--font-display);
+  font-size: 1.35rem; color: var(--white);
+  margin-bottom: 0.4rem;
+}
+.demo-form-wrap p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.75rem; }
+
+.form-group { margin-bottom: 1.1rem; }
+.form-group label {
+  display: block;
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--muted); letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  background: rgba(15,23,42,0.7);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: var(--radius-sm);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  outline: none;
+  -webkit-appearance: none;
+}
+.form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394A3B8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+.form-group select option { background: var(--navy-deep); }
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+}
+.form-group input.error { border-color: var(--error); }
+.form-group input::placeholder { color: rgba(148,163,184,0.5); }
+
+.form-submit-btn {
+  width: 100%;
+  padding: 1.05rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  font-weight: 700; font-size: 1rem;
+  border-radius: var(--radius-sm);
+  margin-top: 0.5rem;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.form-submit-btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+.form-submit-btn:hover::after { transform: translateX(100%); }
+.form-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,175,55,0.5); }
+
+.form-note {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 1rem;
+}
+
+/* ══════════════════════════════════════════════════
+   FAQ
+══════════════════════════════════════════════════ */
+.faq-list { max-width: 800px; margin: 0 auto; }
+.faq-item {
+  border-bottom: 1px solid var(--cream-dark);
+}
+.faq-question {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--navy);
+  text-align: left;
+  gap: 1rem;
+  transition: color 0.25s;
+}
+.faq-question:hover { color: var(--gold-dark); }
+.faq-question .faq-icon {
+  width: 28px; height: 28px; flex-shrink: 0;
+  border: 1.5px solid rgba(212,175,55,0.4);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-dark);
+  font-size: 0.9rem;
+  transition: var(--transition);
+  background: rgba(212,175,55,0.05);
+}
+.faq-item.open .faq-question .faq-icon { background: var(--gold-dark); color: var(--white); transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
+  font-size: 0.9rem; color: rgba(15,23,42,0.75); line-height: 1.75;
+  padding: 0;
+}
+.faq-item.open .faq-answer { max-height: 200px; padding-bottom: 1.5rem; }
+
+/* ══════════════════════════════════════════════════
+   FINAL CTA
+══════════════════════════════════════════════════ */
+#final-cta {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
+  padding: 100px 5%;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+#final-cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 50%, rgba(255,255,255,0.08) 0%, transparent 50%);
+}
+/* confetti particles */
+.confetti-container {
+  position: absolute; inset: 0;
+  overflow: hidden; pointer-events: none;
+}
+.confetti-piece {
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  animation: confettiFall linear infinite;
+  opacity: 0.6;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 0.8; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.final-cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.final-cta-inner h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  color: var(--navy);
+  margin-bottom: 1.25rem;
+  font-weight: 900;
+}
+.final-cta-inner p {
+  font-size: 1.05rem;
+  color: rgba(15,23,42,0.75);
+  margin-bottom: 2.5rem;
+}
+.final-cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ══════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════ */
+footer {
+  background: var(--navy-deep);
+  border-top: 1px solid rgba(212,175,55,0.15);
+  padding: 5rem 5% 0;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.footer-brand .nav-logo { margin-bottom: 1rem; font-size: 1.6rem; }
+.footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.75; max-width: 280px; }
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--white);
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.05em;
+}
+.footer-col ul { display: flex; flex-direction: column; gap: 0.7rem; }
+.footer-col ul a { font-size: 0.85rem; color: var(--muted); transition: color 0.25s; }
+.footer-col ul a:hover { color: var(--gold); }
+
+.social-links { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+.social-link {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 0.9rem;
+  transition: var(--transition);
+}
+.social-link:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 0;
+  font-size: 0.8rem; color: var(--muted);
+}
+
+/* WhatsApp floating button */
+#whatsapp-btn {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  color: white;
+  font-size: 1.6rem;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9000;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+#whatsapp-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(37,211,102,0.7);
+}
+#whatsapp-btn::before {
+  content: '';
+  position: absolute;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: rgba(37,211,102,0.4);
+  animation: wa-pulse 2.5s ease-out infinite;
+}
+#whatsapp-btn::after {
+  content: 'Chat with us on WhatsApp';
+  position: absolute;
+  right: 70px;
+  background: var(--navy);
+  color: var(--white);
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-family: var(--font-body);
+  white-space: nowrap;
+  border: 1px solid rgba(212,175,55,0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+#whatsapp-btn:hover::after { opacity: 1; }
+@keyframes wa-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Back to top */
+#back-top {
+  position: fixed;
+  bottom: 6.5rem; right: 2.1rem;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: rgba(30,45,74,0.9);
+  border: 1px solid rgba(212,175,55,0.3);
+  color: var(--gold); font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 8999;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translateY(10px);
+}
+#back-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+#back-top:hover { background: rgba(212,175,55,0.15); transform: translateY(-3px) !important; }
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(2,1fr); }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .pricing-card.popular { transform: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav-links, .nav-right .btn { display: none; }
+  .hamburger { display: flex; }
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-visual { display: none; }
+  .hero-stats { gap: 1.5rem; }
+  .course-grid { grid-template-columns: 1fr; }
+  .usp-grid { grid-template-columns: 1fr; }
+  .instructors-grid { grid-template-columns: 1fr; }
+  .success-stories { grid-template-columns: 1fr; }
+  #demo { background: var(--navy); }
+  .demo-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .curriculum-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .trust-inner { justify-content: center; flex-direction: column; text-align: center; }
+  .trust-logos { justify-content: center; }
+  #final-cta { padding: 70px 5%; }
+}
+
+@media (max-width: 480px) {
+  .section { padding: 70px 0; }
+  .hero-h1 { font-size: 2.4rem; }
+  .hero-stats { gap: 1rem; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .success-card { flex-direction: column; }
+  .aggregate-rating .big-score { font-size: 3.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════════ -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <a href="#" class="nav-logo" aria-label="EliteSpeak Academy Home">
+    EliteSpeak<span>.</span>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#instructors">Instructors</a></li>
+    <li><a href="#pricing">About US</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#demo">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#demo" class="btn btn-gold">Book Free Demo</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <a href="#courses" class="drawer-link">Courses</a>
+  <a href="#instructors" class="drawer-link">Instructors</a>
+  <a href="#pricing" class="drawer-link">Pricing</a>
+  <a href="#faq" class="drawer-link">FAQ</a>
+  <a href="#demo" class="drawer-link">Contact</a>
+  <a href="#demo" class="btn btn-gold">Book Free Demo</a>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════ -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        TRUSTED BY 5,000+ STUDENTS
+      </div>
+      <h1 class="hero-h1" aria-label="Speak English Confidently in 90 Days">
+        <span class="line"><span>Speak English</span></span>
+        <span class="line"><span>Confidently in</span></span>
+        <span class="line"><span><span class="hero-highlight">90 Days.</span></span></span>
+      </h1>
+      <p class="hero-sub">Live classes, real conversations, expert mentorship — designed for working professionals and students who are serious about fluency.</p>
+      <div class="hero-ctas">
+        <a href="#demo" class="btn btn-gold btn-lg">Enroll Now &rarr;</a>
+        <a href="#demo" class="btn btn-outline btn-lg">&#9654; Watch Demo</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="hero-stat-num" data-count="5000" data-suffix="+">0</div>
+          <div class="hero-stat-label">Students Enrolled</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num" data-count="95" data-suffix="%">0</div>
+          <div class="hero-stat-label">Success Rate</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num" data-count="4" data-suffix=".9★">0</div>
+          <div class="hero-stat-label">Avg. Rating</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num">90-Day</div>
+          <div class="hero-stat-label">Fluency Guarantee</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-quote-mark top-left">"</div>
+      <div class="hero-card-main">
+        <div class="hero-card-inner-bg"></div>
+        <div class="hero-card-avatar">🎓</div>
+        <div class="hero-card-text">
+          <h3>Your Fluency Journey</h3>
+          <p>From hesitant to confident — in 90 days.</p>
+          <div class="hero-card-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="floating-badge">
+        <span class="badge-icon">🎯</span>
+        <div class="badge-text">
+          <strong>Live Classes Daily</strong>
+          <span>Mon–Sat, multiple batches</span>
+        </div>
+      </div>
+      <div class="floating-badge2">🏆 #1 Rated Academy</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TRUST BAR
+══════════════════════════════════════════════ -->
+<div id="trust-bar">
+  <div class="trust-inner">
+    <span class="trust-label">Featured in:</span>
+    <div class="trust-logos">
+      <span class="trust-logo">THE HINDU</span>
+      <span class="trust-logo">TIMES NOW</span>
+      <span class="trust-logo">NDTV EDU</span>
+      <span class="trust-logo">INDIA TODAY</span>
+      <span class="trust-logo">MINT</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     COURSE OVERVIEW
+══════════════════════════════════════════════ -->
+<section id="courses" class="section section--cream">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Our Programs</div>
+      <h2>Three Levels, One Destination: <em>Fluency</em></h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="course-grid">
+      <!-- Beginner -->
+      <div class="course-card reveal">
+        <div class="course-card-icon">🌱</div>
+        <span class="course-level-badge badge-beginner">Beginner</span>
+        <h3>Foundation English</h3>
+        <p class="for-who">For those starting from scratch or with basic knowledge</p>
+        <ul class="course-outcomes">
+          <li>Build essential vocabulary (1,500+ words)</li>
+          <li>Master present, past & future tenses</li>
+          <li>Confidently introduce yourself & hold small talk</li>
+          <li>Understand and be understood in daily situations</li>
+        </ul>
+        <div class="course-duration"><i class="fa-regular fa-clock"></i> 12 Weeks &bull; 3 Classes/Week</div>
+      </div>
+      <!-- Intermediate -->
+      <div class="course-card reveal reveal-delay-1">
+        <div class="course-card-icon">🔥</div>
+        <span class="course-level-badge badge-intermediate">Intermediate</span>
+        <h3>Conversational English</h3>
+        <p class="for-who">For learners who understand basics but struggle with fluency</p>
+        <ul class="course-outcomes">
+          <li>Speak fluently in professional & social settings</li>
+          <li>Write clear emails, reports & presentations</li>
+          <li>Understand native-speed conversations</li>
+          <li>Reduce mother-tongue accent significantly</li>
+        </ul>
+        <div class="course-duration"><i class="fa-regular fa-clock"></i> 10 Weeks &bull; 4 Classes/Week</div>
+      </div>
+      <!-- Advanced -->
+      <div class="course-card reveal reveal-delay-2">
+        <div class="course-card-icon">💎</div>
+        <span class="course-level-badge badge-advanced">Advanced</span>
+        <h3>Professional English</h3>
+        <p class="for-who">For those aiming for corporate, IELTS, or global careers</p>
+        <ul class="course-outcomes">
+          <li>Master persuasive speaking & public presentations</li>
+          <li>Excel in job interviews & group discussions</li>
+          <li>Write at a C1/C2 academic & business level</li>
+          <li>Achieve IELTS 7+ or equivalent certification</li>
+        </ul>
+        <div class="course-duration"><i class="fa-regular fa-clock"></i> 8 Weeks &bull; 5 Classes/Week</div>
+      </div>
+    </div>
+    <div class="method-tags reveal">
+      <span class="method-tag">🗣 Speaking Practice</span>
+      <span class="method-tag">📖 Grammar Mastery</span>
+      <span class="method-tag">💬 Real-Life Conversations</span>
+      <span class="method-tag">🎯 Accent Reduction</span>
+      <span class="method-tag">📝 Writing Skills</span>
+      <span class="method-tag">🎧 Listening Comprehension</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     WHY CHOOSE US
+══════════════════════════════════════════════ -->
+<section id="why-us" class="section section--navy">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Why EliteSpeak</div>
+      <h2>Where Good Teaching Becomes <em>Great Results</em></h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-block reveal">
+        <div class="big-num" data-count="5000" data-suffix="+">0</div>
+        <div class="big-label">Graduates Worldwide</div>
+      </div>
+      <div class="stat-block reveal reveal-delay-1">
+        <div class="big-num" data-count="98" data-suffix="%">0</div>
+        <div class="big-label">Satisfaction Rate</div>
+      </div>
+      <div class="stat-block reveal reveal-delay-2">
+        <div class="big-num" data-count="50" data-suffix="+">0</div>
+        <div class="big-label">Expert Instructors</div>
+      </div>
+      <div class="stat-block reveal reveal-delay-3">
+        <div class="big-num" data-count="12" data-suffix="">0</div>
+        <div class="big-label">Countries Reached</div>
+      </div>
+    </div>
+    <div class="usp-grid">
+      <div class="usp-block reveal">
+        <div class="usp-icon">📡</div>
+        <div class="usp-text">
+          <h4>Live Interactive Classes</h4>
+          <p>Real-time sessions with expert instructors — not pre-recorded videos you'll never finish.</p>
+        </div>
+      </div>
+      <div class="usp-block reveal reveal-delay-1">
+        <div class="usp-icon">🎬</div>
+        <div class="usp-text">
+          <h4>Lifetime Access to Recordings</h4>
+          <p>Every class recorded and uploaded within 2 hours. Revisit lessons anytime, forever.</p>
+        </div>
+      </div>
+      <div class="usp-block reveal reveal-delay-2">
+        <div class="usp-icon">🤝</div>
+        <div class="usp-text">
+          <h4>1-on-1 Mentorship Sessions</h4>
+          <p>Dedicated speaking partners and mentors who give personalised feedback on your progress.</p>
+        </div>
+      </div>
+      <div class="usp-block reveal reveal-delay-3">
+        <div class="usp-icon">🏅</div>
+        <div class="usp-text">
+          <h4>Recognised Certificate</h4>
+          <p>Industry-recognised completion certificate accepted by 200+ partner companies in India.</p>
+        </div>
+      </div>
+    </div>
+    <div class="progress-section">
+      <h3>Average Student Improvement After 90 Days</h3>
+      <div class="progress-list">
+        <div class="progress-item reveal">
+          <div class="progress-label"><span>Speaking Confidence</span><span>92%</span></div>
+          <div class="progress-track"><div class="progress-fill" data-width="92"></div></div>
+        </div>
+        <div class="progress-item reveal reveal-delay-1">
+          <div class="progress-label"><span>Grammar Accuracy</span><span>88%</span></div>
+          <div class="progress-track"><div class="progress-fill" data-width="88"></div></div>
+        </div>
+        <div class="progress-item reveal reveal-delay-2">
+          <div class="progress-label"><span>Overall Confidence</span><span>95%</span></div>
+          <div class="progress-track"><div class="progress-fill" data-width="95"></div></div>
+        </div>
+        <div class="progress-item reveal reveal-delay-3">
+          <div class="progress-label"><span>Pronunciation Clarity</span><span>85%</span></div>
+          <div class="progress-track"><div class="progress-fill" data-width="85"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CURRICULUM
+══════════════════════════════════════════════ -->
+<section id="curriculum" class="section section--cream">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Curriculum</div>
+      <h2>What You'll Learn <em>Week by Week</em></h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="tab-nav" role="tablist">
+      <button class="tab-btn active" data-tab="beginner" role="tab" aria-selected="true">Beginner</button>
+      <button class="tab-btn" data-tab="intermediate" role="tab" aria-selected="false">Intermediate</button>
+      <button class="tab-btn" data-tab="advanced" role="tab" aria-selected="false">Advanced</button>
+    </div>
+    <div class="tab-panel active" id="tab-beginner">
+      <div class="curriculum-grid">
+        <div class="module-card reveal">
+          <div class="module-week">01</div>
+          <div class="module-info">
+            <h4>Foundations & Phonetics</h4>
+            <p>Greetings, introductions, and the English phonetic alphabet. Building pronunciation from the ground up.</p>
+            <div class="module-skills"><span class="module-skill">Phonetics</span><span class="module-skill">Greetings</span><span class="module-skill">Basic Vocab</span></div>
+          </div>
+        </div>
+        <div class="module-card reveal reveal-delay-1">
+          <div class="module-week">02</div>
+          <div class="module-info">
+            <h4>Tenses & Sentence Structure</h4>
+            <p>Present, past, and future tenses with simple sentence construction. Learn to say what you mean, clearly.</p>
+            <div class="module-skills"><span class="module-skill">Tenses</span><span class="module-skill">Sentences</span><span class="module-skill">Grammar</span></div>
+          </div>
+        </div>
+        <div class="module-card reveal reveal-delay-2">
+          <div class="module-week">03</div>
+          <div class="module-info">
+            <h4>Daily Life Conversations</h4>
+            <p>Shopping, directions, travel, restaurants. Real scripts and roleplays for everyday situations.</p>
+            <div class="module-skills"><span class="module-skill">Roleplay</span><span class="module-skill">Scripts</span><span class="module-skill">Listening</span></div>
+          </div>
+        </div>
+        <div class="module-card reveal reveal-delay-3">
+          <div class="module-week">04</div>
+          <div class="module-info">
+            <h4>Building Fluency Habits</h4>
+            <p>Speed-reading, shadowing technique, and daily speaking practice routines that compound over time.</p>
+            <div class="module-skills"><span class="module-skill">Shadowing</span><span class="module-skill">Fluency</span><span class="module-skill">Habit</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-intermediate">
+      <div class="curriculum-grid">
+        <div class="module-card reveal">
+          <div class="module-week">01</div>
+          <div class="module-info">
+            <h4>Professional Communication</h4>
+            <p>Business English for meetings, calls, and emails. Structure your thoughts and speak with authority.</p>
+            <div class="module-skills"><span class="module-skill">Business</span><span class="module-skill">Emails</span><span class="module-skill">Meetings</span></div>
+          </div>
+        </div>
+        <div class="module-card reveal reveal-delay-1">
+          <div class="module-week">02</div>
+          <div class="module-info">
+            <h4>Advanced Grammar & Usage</h4>
+            <p>Conditionals, passive voice, reported speech and complex sentence structures used by native speakers.</p>
+            <div class="module-skills"><span class="module-skill">Conditionals</span><span class="module-skill">Passive</span><span class="module-skill">Advanced</span></div>
+          </div>
+        </div>
+        <div class="module-card reveal reveal-delay-2">
+          <div class="module-week">03</div>
+          <div class="module-info">
+            <h4>Debate & Discussion</h4>
+            <p>Express opinions, argue points, and hold your own in group discussions and debates confidently.</p>
+            <div class="module-skills"><span class="module-skill">Debate</span><span class="module-skill">Opinions</span><span class="module-skill">Logic</span></div>
+          </div>
+        </div>
+        <div class="module-card reveal reveal-delay-3">
+          <div class="module-week">04</div>
+          <div class="module-info">
+            <h4>Accent & Intonation</h4>
+            <p>Understand and replicate natural stress, rhythm, and intonation patterns of fluent English speakers.</p>
+            <div class="module-skills"><span class="module-skill">Accent</span><span class="module-skill">Intonation</span><span class="module-skill">Stress</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-advanced">
+      <div class="curriculum-grid">
+        <div class="module-card reveal">
+          <div class="module-week">01</div>
+          <div class="module-info">
+            <h4>Executive Presentations</h4>
+            <p>Craft and deliver powerful presentations. Voice modulation, storytelling, and slide narration at C1 level.</p>
+            <div class="module-skills"><span class="module-skill">Presentations</span><span class="module-skill">Storytelling</span><span class="module-skill">C1</span></div>
+          </div>
+        </div>
+        <div class="module-card reveal reveal-delay-1">
+          <div class="module-week">02</div>
+          <div class="module-info">
+            <h4>IELTS / Interview Prep</h4>
+            <p>Mock tests, speaking band descriptors, and job interview simulation with real-time AI feedback.</p>
+            <div class="module-skills"><span class="module-skill">IELTS</span><span class="module-skill">Interview</span><span class="module-skill">Mock Tests</span></div>
+          </div>
+        </div>
+        <div class="module-card reveal reveal-delay-2">
+          <div class="module-week">03</div>
+          <div class="module-info">
+            <h4>Academic & Business Writing</h4>
+            <p>Reports, proposals, research abstracts and persuasive essays written at an international standard.</p>
+            <div class="module-skills"><span class="module-skill">Academic</span><span class="module-skill">Writing</span><span class="module-skill">Proposals</span></div>
+          </div>
+        </div>
+        <div class="module-card reveal reveal-delay-3">
+          <div class="module-week">04</div>
+          <div class="module-info">
+            <h4>Global Fluency Simulation</h4>
+            <p>Roleplay as global professionals: negotiation, cross-cultural communication, and executive presence.</p>
+            <div class="module-skills"><span class="module-skill">Negotiation</span><span class="module-skill">Global</span><span class="module-skill">Executive</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="curriculum-cta reveal">
+      <a href="#demo" class="btn btn-outline" style="border-color:var(--gold-dark);color:var(--gold-dark);">
+        <i class="fa-solid fa-download"></i> Download Full Curriculum
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     INSTRUCTORS
+══════════════════════════════════════════════ -->
+
+
+<!-- ══════════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════════ -->
+<section id="testimonials" class="section section--cream" style="background:#0F172A !important">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Student Stories</div>
+      <h2> <em>Real Students, Real Results</em></h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="testimonial-carousel" aria-label="Student testimonials">
+      <div class="testimonial-track">
+        <!-- Cards set 1 -->
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"I used to freeze during meetings. After 3 months with EliteSpeak, I gave a presentation to 80 people in English — without notes. Unbelievable transformation."</p>
+          <div class="t-footer">
+            <div class="t-avatar">👨</div>
+            <div class="t-info"><strong>Rahul Verma</strong><span>Software Engineer, Bangalore</span></div>
+            <div class="t-progress"><div class="before">Before: A2</div><div class="after">After: C1 ✦</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"The 1-on-1 sessions made all the difference. My IELTS score jumped from 5.5 to 7.5 in just 8 weeks. I'm now studying in Canada. Dreams do come true!"</p>
+          <div class="t-footer">
+            <div class="t-avatar">👩</div>
+            <div class="t-info"><strong>Anjali Patel</strong><span>IELTS Student, Ahmedabad</span></div>
+            <div class="t-progress"><div class="before">IELTS 5.5</div><div class="after">IELTS 7.5 ✦</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"As a small business owner, English was holding me back from global clients. EliteSpeak changed that completely. I just closed my first US deal — in English!"</p>
+          <div class="t-footer">
+            <div class="t-avatar">👨‍💼</div>
+            <div class="t-info"><strong>Vikram Shah</strong><span>Entrepreneur, Surat</span></div>
+            <div class="t-progress"><div class="before">Before: B1</div><div class="after">After: C1+ ✦</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"Dr. Priya's patience and structured approach gave me the tools and the courage. I now conduct training sessions in English for my team every week."</p>
+          <div class="t-footer">
+            <div class="t-avatar">👩‍💼</div>
+            <div class="t-info"><strong>Meera Nair</strong><span>HR Manager, Mumbai</span></div>
+            <div class="t-progress"><div class="before">Before: B1</div><div class="after">After: B2+ ✦</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"Worth every rupee. The curriculum is structured, the teachers are world-class, and the community keeps you going. I went from zero confidence to fluent in 90 days."</p>
+          <div class="t-footer">
+            <div class="t-avatar">🧑</div>
+            <div class="t-info"><strong>Karan Mehta</strong><span>MBA Student, Pune</span></div>
+            <div class="t-progress"><div class="before">Before: A2</div><div class="after">After: B2 ✦</div></div>
+          </div>
+        </div>
+        <!-- Duplicate set for infinite scroll -->
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"I used to freeze during meetings. After 3 months with EliteSpeak, I gave a presentation to 80 people in English — without notes. Unbelievable transformation."</p>
+          <div class="t-footer">
+            <div class="t-avatar">👨</div>
+            <div class="t-info"><strong>Rahul Verma</strong><span>Software Engineer, Bangalore</span></div>
+            <div class="t-progress"><div class="before">Before: A2</div><div class="after">After: C1 ✦</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"The 1-on-1 sessions made all the difference. My IELTS score jumped from 5.5 to 7.5 in just 8 weeks. I'm now studying in Canada. Dreams do come true!"</p>
+          <div class="t-footer">
+            <div class="t-avatar">👩</div>
+            <div class="t-info"><strong>Anjali Patel</strong><span>IELTS Student, Ahmedabad</span></div>
+            <div class="t-progress"><div class="before">IELTS 5.5</div><div class="after">IELTS 7.5 ✦</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"As a small business owner, English was holding me back from global clients. EliteSpeak changed that completely. I just closed my first US deal — in English!"</p>
+          <div class="t-footer">
+            <div class="t-avatar">👨‍💼</div>
+            <div class="t-info"><strong>Vikram Shah</strong><span>Entrepreneur, Surat</span></div>
+            <div class="t-progress"><div class="before">Before: B1</div><div class="after">After: C1+ ✦</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"Dr. Priya's patience and structured approach gave me the tools and the courage. I now conduct training sessions in English for my team every week."</p>
+          <div class="t-footer">
+            <div class="t-avatar">👩‍💼</div>
+            <div class="t-info"><strong>Meera Nair</strong><span>HR Manager, Mumbai</span></div>
+            <div class="t-progress"><div class="before">Before: B1</div><div class="after">After: B2+ ✦</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"Worth every rupee. The curriculum is structured, the teachers are world-class, and the community keeps you going. I went from zero confidence to fluent in 90 days."</p>
+          <div class="t-footer">
+            <div class="t-avatar">🧑</div>
+            <div class="t-info"><strong>Karan Mehta</strong><span>MBA Student, Pune</span></div>
+            <div class="t-progress"><div class="before">Before: A2</div><div class="after">After: B2 ✦</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="aggregate-rating reveal">
+      <div class="big-score">4.9</div>
+      <div class="stars-row">★★★★★</div>
+      <div class="review-count">Based on 2,400+ verified reviews</div>
+    </div>
+    <div class="success-stories">
+      <div class="success-card reveal">
+        <div class="success-stat">
+          <div class="pct">+87%</div>
+          <div class="pct-label">Speaking Confidence</div>
+        </div>
+        <div class="success-info">
+          <h4>From Shy Engineer to Confident Team Lead</h4>
+          <p>Rohan joined as a beginner who could barely ask questions in stand-ups. After 90 days of EliteSpeak's Professional track, he was running daily scrums for a 15-member team — entirely in English.</p>
+        </div>
+      </div>
+      <div class="success-card reveal reveal-delay-1">
+        <div class="success-stat">
+          <div class="pct">7.5</div>
+          <div class="pct-label">IELTS Score</div>
+        </div>
+        <div class="success-info">
+          <h4>From Rejection to a UK University Offer</h4>
+          <p>Preethi had failed IELTS twice with a 5.5. In 10 weeks with EliteSpeak's Advanced track and 1-on-1 mock sessions, she achieved 7.5 and secured a full scholarship to the University of Edinburgh.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     PRICING
+══════════════════════════════════════════════ -->
+<section id="pricing" class="section section--navy" style="background:#F8F5F0;padding:100px 20px;">
+  <div class="container" style="max-width:1200px;margin:auto;">
+    
+    <div class="section-header">
+    
+      <h2> <em> About US </em></h2>
+      <div class="gold-divider"></div>
+    </div>
+
+    <div style="
+        display:flex;
+        gap:50px;
+        align-items:center;
+        background:#1E2D4A;
+        padding:40px;
+        border-radius:16px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.4);
+        border:1px solid rgba(212,175,55,0.4);
+        backdrop-filter:blur(8px);
+        flex-wrap:wrap;
+    ">
+
+      <!-- Instructor Image -->
+      <div style="text-align:center;flex:1;min-width:250px;">
+        <img src="./kashif-2.jpeg" alt="Kashif Sir"
+        style="
+        justify-self: center;
+        width:220px;
+        height:220px;
+        object-fit:cover;
+        border-radius:50%;
+        border:4px solid #D4AF37;
+        box-shadow:0 10px 40px rgba(212,175,55,0.5);
+        margin-bottom:20px;
+        ">
+
+        <div class="instructor-name" 
+        style="
+        color:#F8F5F0;
+        font-size:24px;
+        font-family:Playfair Display,serif;
+        letter-spacing:1px;
+        ">
+        Dear Kashif Sir
+        </div>
+
+        <div style="
+        color:#D4AF37;
+        margin-top:6px;
+        font-size:14px;
+        font-family:DM Sans,sans-serif;
+        ">
+        Senior English Mentor
+        </div>
+      </div>
+
+      <!-- Instructor Content -->
+      <div style="flex:2;min-width:300px;">
+        <p style="
+        color:#EDE8E0;
+        line-height:1.8;
+        font-size:16px;
+        font-family:DM Sans,sans-serif;
+        ">
+        Kashif Sir is a passionate English language mentor dedicated to helping
+        students gain confidence in speaking, writing, and communicating
+        effectively. With years of experience teaching learners from different
+        backgrounds, he focuses on practical conversation skills, strong grammar
+        foundations, and real-world communication techniques.
+
+        His teaching approach combines interactive discussions, structured
+        lessons, and personalized guidance to ensure every student progresses
+        steadily. Many students have successfully improved their fluency,
+        pronunciation, and confidence under his mentorship.
+        </p>
+
+        <div style="margin-top:25px;">
+          <span style="
+          background:#D4AF37;
+          color:#0F172A;
+          padding:8px 16px;
+          border-radius:50px;
+          font-size:13px;
+          margin-right:10px;
+          font-family:DM Sans;
+          ">Speaking Expert</span>
+
+          <span style="
+          background:#D4AF37;
+          color:#0F172A;
+          padding:8px 16px;
+          border-radius:50px;
+          font-size:13px;
+          margin-right:10px;
+          font-family:DM Sans;
+          ">Grammar Coach</span>
+
+          <span style="
+          background:#D4AF37;
+          color:#0F172A;
+          padding:8px 16px;
+          border-radius:50px;
+          font-size:13px;
+          font-family:DM Sans;
+          ">Communication Trainer</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     DEMO / LEAD FORM
+══════════════════════════════════════════════ -->
+<section >
+      <form id="demoForm" novalidate>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════════ -->
+<section id="faq" class="section section--cream">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">FAQ</div>
+      <h2>Questions? We Have <em>Answers.</em></h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How long are the classes?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">Each live class is 60 minutes long. Sessions include 30–40 minutes of instruction and 20–30 minutes of interactive speaking practice. All sessions are recorded and available to you within 2 hours.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Do I need any prior experience?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">Not at all! Our Beginner track is designed for complete beginners. After booking your free demo, we assess your current level and place you in the most suitable batch for your needs.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Are classes live or recorded?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">All classes are live and interactive via Zoom. Recordings are made available within 2 hours of each session and stored in your personal dashboard — accessible for lifetime.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What happens after 90 days?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">You receive your completion certificate and a detailed proficiency report. You can continue to the next level, join our alumni community, or opt for our advanced placement support programme.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Is there a refund policy?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">Yes. We offer a 30-day money-back guarantee — no questions asked. Premium plan students also get our Fluency Guarantee: if you don't reach the promised level after 90 days, we continue for free.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How many students are in each batch?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">Group batches have a maximum of 12 students to ensure every student gets speaking time and personalised feedback. 1-on-1 sessions are available in Professional and Premium plans.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Do I get a certificate?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">Yes! Professional and Premium students receive an industry-recognised EliteSpeak Certificate of Completion, accepted by 200+ partner companies across India and internationally.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I switch between levels mid-course?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">Absolutely. Our instructors continuously monitor your progress. If you advance faster than expected, we can move you to a higher-level batch without any additional charge or paperwork.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FINAL CTA
+══════════════════════════════════════════════ -->
+<section id="final-cta">
+  <div class="confetti-container" id="confettiContainer"></div>
+  <div class="final-cta-inner reveal">
+    <h2>Your Journey to Confident English Starts Today</h2>
+    <p>Join 5,000+ students who transformed their English — and their careers — with EliteSpeak Academy.</p>
+    <div class="final-cta-btns">
+      <a href="#demo" class="btn btn-navy btn-lg">Enroll Now</a>
+      <a href="#demo" class="btn btn-outline-navy btn-lg">Talk to an Advisor</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid container">
+    <div class="footer-brand">
+      <div class="nav-logo">EliteSpeak<span>.</span></div>
+      <p>Premium English coaching for professionals and students who want results — not just lessons. Real classes. Real progress. In 90 days.</p>
+      <div class="social-links">
+        <a href="#" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" class="social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#instructors">Instructors</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Courses</h4>
+      <ul>
+        <li><a href="#">Beginner English</a></li>
+        <li><a href="#">Conversational</a></li>
+        <li><a href="#">Business English</a></li>
+        <li><a href="#">IELTS Prep</a></li>
+        <li><a href="#">Advanced Track</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:hello@elitespeak.in">hello@elitespeak.in</a></li>
+        <li><a href="tel:+919999999999">+91 99999 99999</a></li>
+        <li><a href="#">Ahmedabad, India</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <span>© 2026 EliteSpeak Academy. All rights reserved.</span>
+    <span>Made with ✦ for English learners everywhere</span>
+  </div>
+</footer>
+
+<!-- WhatsApp Button -->
+<a id="whatsapp-btn" href="https://wa.me/919999999999" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- Back to top -->
+<button id="back-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<!-- ══════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════ -->
+<script>
+/* ── NAV SCROLL ── */
+const navbar = document.getElementById('navbar');
+const backTop = document.getElementById('back-top');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) {
+    navbar.classList.add('scrolled');
+    backTop.classList.add('visible');
+  } else {
+    navbar.classList.remove('scrolled');
+    backTop.classList.remove('visible');
+  }
+}, { passive: true });
+
+/* ── MOBILE DRAWER ── */
+const hamburger = document.getElementById('hamburger');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const drawerOverlay = document.getElementById('drawerOverlay');
+function closeDrawer() {
+  hamburger.classList.remove('open');
+  mobileDrawer.classList.remove('open');
+  drawerOverlay.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+hamburger.addEventListener('click', () => {
+  const isOpen = hamburger.classList.toggle('open');
+  mobileDrawer.classList.toggle('open');
+  drawerOverlay.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', isOpen);
+});
+drawerOverlay.addEventListener('click', closeDrawer);
+document.querySelectorAll('.drawer-link, .mobile-drawer .btn').forEach(link => link.addEventListener('click', closeDrawer));
+
+/* ── SMOOTH SCROLL FOR NAV LINKS ── */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', e => {
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 70;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+/* ── SCROLL REVEAL ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ── COUNTER ANIMATION ── */
+function animateCounter(el) {
+  const target = parseInt(el.dataset.count);
+  const suffix = el.dataset.suffix || '';
+  const duration = 2000;
+  const start = performance.now();
+  function step(now) {
+    const elapsed = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - elapsed, 4);
+    el.textContent = Math.round(eased * target) + suffix;
+    if (elapsed < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && entry.target.dataset.count) {
+      animateCounter(entry.target);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+/* ── PROGRESS BARS ── */
+const progressObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fill = entry.target.querySelector('.progress-fill');
+      if (fill) fill.style.width = fill.dataset.width + '%';
+      progressObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.progress-item').forEach(el => progressObserver.observe(el));
+
+/* ── TABS ── */
+const tabBtns = document.querySelectorAll('.tab-btn');
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    if (panel) {
+      panel.classList.add('active');
+      // Re-trigger reveals inside newly active panel
+      panel.querySelectorAll('.reveal').forEach(el => {
+        el.classList.remove('visible');
+        setTimeout(() => revealObserver.observe(el), 50);
+      });
+    }
+  });
+});
+
+/* ── FAQ ACCORDION ── */
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+/* ── FORM VALIDATION ── */
+document.getElementById('demoForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  let valid = true;
+  this.querySelectorAll('[required]').forEach(field => {
+    field.classList.remove('error');
+    if (!field.value.trim()) { field.classList.add('error'); valid = false; }
+  });
+  if (valid) {
+    const btn = this.querySelector('.form-submit-btn');
+    btn.textContent = '✓ Spot Reserved! We\'ll contact you soon.';
+    btn.style.background = 'linear-gradient(135deg, #22C55E, #4ADE80)';
+    btn.style.color = '#fff';
+    btn.disabled = true;
+  }
+});
+
+/* ── CONFETTI ── */
+function createConfetti() {
+  const container = document.getElementById('confettiContainer');
+  if (!container) return;
+  const colors = ['#fff', 'rgba(255,255,255,0.6)', 'rgba(15,23,42,0.3)'];
+  for (let i = 0; i < 30; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.cssText = `
+      left: ${Math.random()*100}%;
+      background: ${colors[Math.floor(Math.random()*colors.length)]};
+      width: ${4+Math.random()*8}px;
+      height: ${4+Math.random()*8}px;
+      border-radius: ${Math.random()>0.5?'50%':'2px'};
+      animation-duration: ${4+Math.random()*6}s;
+      animation-delay: ${Math.random()*6}s;
+    `;
+    container.appendChild(piece);
+  }
+}
+createConfetti();
+
+/* ── HERO COUNTER ON LOAD ── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('#hero [data-count]').forEach(animateCounter);
+  }, 1200);
+});
+</script>
+</body>
+</html>
